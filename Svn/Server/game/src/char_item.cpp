@@ -12,11 +12,12 @@ bool CHARACTER::RemoveSpecifyItems(std::set<DWORD> _ilist, int count)
 
 	while (count > 0 && _ilist.size()) {
 		const auto vnum = *_ilist.begin();
-		if (!CountSpecifyItem(vnum)) {
+		const auto i_count = CountSpecifyItem(vnum);
+		if (!i_count) {
 			_ilist.erase(_ilist.begin());
 			continue;
 		}
-		const auto delcount = MINMAX(1, MIN(count, CountSpecifyItem(vnum)), ITEM_MAX_COUNT);
+		const auto delcount = MINMAX(1, MIN(count, i_count), ITEM_MAX_COUNT);
 		RemoveSpecifyItem(vnum, static_cast<DWORD>(delcount));
 		count -= delcount;
 	}
